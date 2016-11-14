@@ -22,7 +22,7 @@ public class Generator {
             if (matcher.find())
                 b = Integer.parseInt(range.substring( matcher.toMatchResult().start(),matcher.toMatchResult().end() ));
             out.printf("Computing...\n");
-            int rand = (int)(Math.random()*(b-a)) + a;
+            int rand = (int)(Math.random()*(b-a+1)) + a;
             out.printf("You got %d\nAsk again? (Y/n) ", rand);
             if (input.nextLine().toLowerCase().contains("n")) break;
             out.print("Same range? ");
