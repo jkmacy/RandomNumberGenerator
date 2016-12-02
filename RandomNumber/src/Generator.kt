@@ -13,7 +13,7 @@ object Generator {
         while (true) {
             print("Pick a number range (no less than 0, no greater than 1,000,000; ex. 1-25): ")
             val range = input.nextLine()
-            val result : Sequence<MatchResult>? = num.findAll(range)
+            val result: Sequence<MatchResult>? = num.findAll(range)
 
             if (Regex("^[nN]").containsMatchIn(range))
                 break
@@ -23,30 +23,32 @@ object Generator {
                 b = it.elementAtOrNull(1)?.value?.toInt()
             }
 
-            compute()
+            if (!compute()) break
         }
     }
 
-    fun compute() {
+    fun compute(): Boolean {
         //println("Computing...\n")
-        val rand: Random = Random()
 
         if (a != null && b != null) {
-            val diff = b as Int - a as Int + 1
-            println("The number is ${rand.nextInt(diff) + a as Int}\n")
+            println("\nThe number is ${Compute(a as Int, b as Int).next()}\n")
 
+            //Asks whether to go again, or quit the program
             print("Ask again? (Y/n) ")
             if (Regex("^[nN]").containsMatchIn(input.nextLine()))
-                return
+                return false
 
+            //Asks whether to use same number range, or ask a new range
             print("Same range? (Y/n) ")
             if (Regex("^[yY]").containsMatchIn(input.nextLine()))
                 compute()
+            else return true
         }
         else {
             println("Invalid")
-            return
+            return true
         }
+        return false
     }
-}
 
+}
