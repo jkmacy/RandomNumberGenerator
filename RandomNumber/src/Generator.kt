@@ -28,10 +28,11 @@ object Generator {
     }
 
     fun compute(): Boolean {
-        //println("Computing...\n")
+        println("Computing...\n")
 
         if (a != null && b != null) {
             println("\nThe number is ${Compute(a as Int, b as Int).next()}\n")
+            //println("\nThe number is ${Compute(a as Int, b as Int).genList}\n")
 
             //Asks whether to go again, or quit the program
             print("Ask again? (Y/n) ")

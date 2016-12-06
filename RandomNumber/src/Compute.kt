@@ -5,24 +5,28 @@ import java.util.*
  */
 class Compute(val a: Int, val b: Int) {
     val diff = b - a + 1
-    val rand = Random(diff.toLong())
+    val rand = Random()
     val genList: MutableList<Int>
 
     init {
-       genList = mutableListOf(a,b)
-       genList.removeAll { it is Int }
+        genList = mutableListOf(a,b)
+        genList.removeAll { it is Int }
+        addRand(8192)
     }
 
     fun next(): Int {
-        addRand(100)
-        return rand.nextInt(diff) + a;
+        return pickRand(genList)
     }
 
     private fun addRand(times: Int) {
-        var t = times - 2
-        while (t-- > 0)
+        for (t in 0.rangeTo(times))
             genList.add(rand.nextInt(diff) + a)
     }
 
-    //private fun pickRand()
+    private fun pickRand(list: MutableList<Int>): Int {
+        if (list.size == 1)
+            return list[0] //if list size is one, just return the number
+        val pickList = listOf(pickRand( list.subList( 0,list.size/2 ) ), pickRand( list.subList( list.size/2, list.size ) )) //picks two random numbers from the list
+        return pickList[rand.nextInt(2)] // picks one or the other
+    }
 }
